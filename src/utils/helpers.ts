@@ -12,7 +12,7 @@ export function base64URL(value: string) {
 }
 
 export function base64Encode(value: string) {
-    if (window && window.btoa) {
+    if (typeof window !== 'undefined' && window.btoa) {
         return window.btoa(value)
     }
 
@@ -20,7 +20,7 @@ export function base64Encode(value: string) {
 }
 
 export function base64Decode(value: string) {
-    if (window && window.atob) {
+    if (typeof window !== 'undefined' && window.atob) {
         return window.atob(value)
     }
 

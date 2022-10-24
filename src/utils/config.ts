@@ -1,6 +1,9 @@
 import { ConfigInitProps, ConfigInterface } from '../interfaces/config'
+import { Constants } from './constants'
 
 export class Config implements ConfigInterface {
+    private readonly apiUrl: string
+    private readonly issuerUrl: string
     private readonly appId: string
 
     private readonly apiKey?: string
@@ -13,6 +16,9 @@ export class Config implements ConfigInterface {
     private readonly sandbox: boolean = true
 
     constructor(props: ConfigInitProps) {
+        this.apiUrl = props.apiUrl || Constants.API_URL
+        this.issuerUrl = props.issuerUrl || Constants.ISSUER
+
         this.appId = props.appId
 
         this.apiKey = props.apiKey
@@ -23,6 +29,14 @@ export class Config implements ConfigInterface {
         this.redirectUri = props.redirectUri
 
         this.sandbox = props.sandbox || true
+    }
+
+    public getApiUrl(): string {
+        return this.apiUrl
+    }
+
+    public getIssuerUrl(): string {
+        return this.issuerUrl
     }
 
     public getAppId(): string | undefined {

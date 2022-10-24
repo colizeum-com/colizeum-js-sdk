@@ -37,7 +37,13 @@ export class ColizeumAuth implements AuthInterface {
         return this.config
     }
 
-    public getAuthenticationUrl(props: AuthUrlProps): string {
+    public getAuthenticationUrl(props?: AuthUrlProps): string {
+        if (!props) {
+            props = {
+                pkce: true,
+            }
+        }
+
         if (!props.scopes) {
             props.scopes = Constants.DEFAULT_SCOPES
         }
@@ -53,8 +59,12 @@ export class ColizeumAuth implements AuthInterface {
         const clientId = this.getConfig().getClientId()
         const redirectUri = this.getConfig().getRedirectUri()
 
-        if (!clientId || !redirectUri) {
+        if (!clientId) {
             throw new MissingCredentialsException('Missing Client ID')
+        }
+
+        if (!redirectUri) {
+            throw new MissingCredentialsException('Missing Redirect URI')
         }
 
         const params: any = {

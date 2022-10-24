@@ -48,7 +48,7 @@ const colizeum = new Colizeum({
 })
 ```
 
-## Example
+## Examples
 
 ```JavaScript
 import { Colizeum } from "colizeum-sdk";

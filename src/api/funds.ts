@@ -1,6 +1,5 @@
 import { ApiClient } from './client'
 import { Constants } from '../utils/constants'
-import { ConfigInitProps } from '../interfaces/config'
 import { FundsApiInterface } from '../interfaces/funds'
 import { GetEnergyResponse } from '../interfaces/responses/get-energy'
 import { ConsumeEnergyResponse } from '../interfaces/responses/consume-energy'
@@ -9,8 +8,8 @@ import { GetSecondaryCurrencyResponse } from '../interfaces/responses/get-second
 import { GetEarningsResponse } from '../interfaces/responses/get-earnings'
 
 export class ColizeumFunds extends ApiClient implements FundsApiInterface {
-    constructor(config?: ConfigInitProps) {
-        super(`${Constants.API_URL}/funds`, config)
+    public getBaseUrl(): string {
+        return `${this.getConfig()?.getApiUrl() || Constants.API_URL}/funds`
     }
 
     public getEnergy(): Promise<GetEnergyResponse> {

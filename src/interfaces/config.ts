@@ -1,4 +1,7 @@
 export interface ConfigInitProps {
+    apiUrl?: string
+    issuerUrl?: string
+
     appId: string
 
     apiKey?: string
@@ -13,6 +16,10 @@ export interface ConfigInitProps {
 }
 
 export interface ConfigInterface {
+    getApiUrl(): string
+
+    getIssuerUrl(): string
+
     getAppId(): string | undefined
 
     getApiKey(): string | undefined

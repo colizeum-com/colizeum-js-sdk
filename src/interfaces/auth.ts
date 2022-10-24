@@ -10,7 +10,7 @@ export interface AuthUrlProps {
 export interface AuthInterface {
     setConfig(config: ConfigInterface): void
 
-    getAuthenticationUrl(props: AuthUrlProps): string
+    getAuthenticationUrl(props?: AuthUrlProps): string
 
     getTokensFromCode(code: string, verifier?: string): Promise<GetTokenResponse>
 

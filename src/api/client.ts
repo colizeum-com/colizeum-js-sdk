@@ -7,7 +7,7 @@ import { Config } from '../utils/config'
 import { ConfigInitProps, ConfigInterface } from '../interfaces/config'
 import { ApiClientInterface } from '../interfaces/api'
 
-export class ApiClient implements ApiClientInterface {
+export abstract class ApiClient implements ApiClientInterface {
     private client: AxiosInstance
     private config: ConfigInterface
 
@@ -18,10 +18,8 @@ export class ApiClient implements ApiClientInterface {
         'Accept': 'application/json',
     }
 
-    constructor(baseURL: string, config?: ConfigInitProps) {
-        this.client = axios.create({
-            baseURL,
-        })
+    constructor(config?: ConfigInitProps) {
+        this.client = axios.create()
 
         if (!config) {
             return
@@ -29,6 +27,8 @@ export class ApiClient implements ApiClientInterface {
 
         this.config = new Config(config)
     }
+
+    public abstract getBaseUrl(): string
 
     public setConfig(config: ConfigInterface): void {
         this.config = config
@@ -51,7 +51,7 @@ export class ApiClient implements ApiClientInterface {
         try {
             const config: AxiosRequestConfig = {
                 method,
-                url,
+                url: this.getBaseUrl() + url,
                 headers: {
                     ...this.headers,
                     ...headers,

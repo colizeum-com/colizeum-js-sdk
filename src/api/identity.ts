@@ -1,12 +1,11 @@
 import { ApiClient } from './client'
 import { Constants } from '../utils/constants'
-import { ConfigInitProps } from '../interfaces/config'
 import { IdentityApiInterface } from '../interfaces/identity'
 import { GetTokenResponse } from '../interfaces/responses/get-token'
 
 export class ColizeumIdentity extends ApiClient implements IdentityApiInterface {
-    constructor(config?: ConfigInitProps) {
-        super(Constants.ISSUER, config)
+    public getBaseUrl(): string {
+        return this.getConfig()?.getIssuerUrl() || Constants.ISSUER
     }
 
     public getTokensFromCode(code: string, verifier?: string): Promise<GetTokenResponse> {
